@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseStorage
+import FirebaseFirestore
 
-struct LoginPage: View {
+struct LoginView: View {
     
     // MARK: User Details
-    @State private var username = ""
-    @State private var password = ""
+    @State var emailID: String = ""
+    @State var password: String = ""
     
     // MARK: View Properties
     @State var createAccount: Bool = false
@@ -34,7 +37,7 @@ struct LoginPage: View {
                 .padding(.top, 20)
             
             VStack(spacing: 20) {
-                TextField("UserName", text: $username)
+                TextField("UserName", text: $emailID)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
@@ -91,22 +94,78 @@ struct LoginPage: View {
         .vAlign(.top)
         .padding(20)
         .overlay(content: {
-           // LoadingView(show: $isLoading)
+            LoadingView(show: $isLoading)
         })
         // MARK: Register View VIA Sheets
         .fullScreenCover(isPresented: $createAccount) {
-          //  RegisterView()
+            RegisterView()
         }
         // MARK: Displaying Alert
         .alert(errorMessage, isPresented: $showError, actions: {})
+    }
+    
+    func loginUser() {
+        Task {
+            do {
+                // With the help of Swift Concurrency Auth can be done with Single Line
+                try await Auth.auth().signIn(withEmail: emailID , password: password)
+                print("User logged in successfully.")
+                try await fetchUser()
+            } catch {
+                print("Login failed with error: \(error.localizedDescription)")
+                await setError(error)
+            }
+        }
+        
+        func resetPassword(){
+            Task{
+                do{
+                    // With the help of Swift Concurrency Auth can be done with Single Line
+                    try await Auth.auth().sendPasswordReset(withEmail: emailID)
+                    print("Link Sent")
+                }catch{
+                    await setError(error)
+                }
+            }
+        }
+        
+        // MARK: Displaying Errors VIA Alert
+        @Sendable func setError(_ error: Error)async{
+            // MARK: UI Must be Updated on Main Thread
+            await MainActor.run(body: {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+                isLoading = false
+            })
+        }
+    }
+    
+    
+    // MARK: If User if Found then Fetching User Data From Firestore
+    func fetchUser()async throws{
+        guard let userID = Auth.auth().currentUser?.uid else{return}
+        let user = try await Firestore.firestore().collection("Users").document(userID).getDocument(as: User.self)
+        // MARK: UI Updating Must be Run On Main Thread
+        await MainActor.run(body: {
+            // Setting UserDefaults data and Changing App's Auth Status
+            userUID = userID
+            userNameStored = user.userEmail
+            profileURL = user.userProfileURL
+            logStatus = true
+        })
     }
 }
 
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPage()
+        LoginView()
     }
 }
+
+
+
+
+
 
 extension View{
     // Closing All Active Keyboards
