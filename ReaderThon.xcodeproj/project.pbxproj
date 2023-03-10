@@ -12,6 +12,8 @@
 		085457EF29B90AAD002F80B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 085457EE29B90AAD002F80B4 /* Assets.xcassets */; };
 		085457F229B90AAD002F80B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 085457F129B90AAD002F80B4 /* Preview Assets.xcassets */; };
 		085457F929B9159C002F80B4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085457F829B9159C002F80B4 /* LoginView.swift */; };
+		08D5B83929BAE728004C7421 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08D5B83829BAE728004C7421 /* GoogleService-Info.plist */; };
+		08D5B83D29BAE9AA004C7421 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 08D5B83C29BAE9AA004C7421 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,7 @@
 		085457EE29B90AAD002F80B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		085457F129B90AAD002F80B4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		085457F829B9159C002F80B4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		08D5B83829BAE728004C7421 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D5B83D29BAE9AA004C7421 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +60,7 @@
 			children = (
 				085457EA29B90AAB002F80B4 /* ReaderThonApp.swift */,
 				085457EC29B90AAB002F80B4 /* ContentView.swift */,
+				08D5B83829BAE728004C7421 /* GoogleService-Info.plist */,
 				085457EE29B90AAD002F80B4 /* Assets.xcassets */,
 				085457F029B90AAD002F80B4 /* Preview Content */,
 			);
@@ -86,6 +91,9 @@
 			dependencies = (
 			);
 			name = ReaderThon;
+			packageProductDependencies = (
+				08D5B83C29BAE9AA004C7421 /* SDWebImageSwiftUI */,
+			);
 			productName = ReaderThon;
 			productReference = 085457E729B90AAB002F80B4 /* ReaderThon.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +122,10 @@
 				Base,
 			);
 			mainGroup = 085457DE29B90AAB002F80B4;
+			packageReferences = (
+				08D5B83A29BAE870004C7421 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				08D5B83B29BAE9AA004C7421 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 085457E829B90AAB002F80B4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				085457F229B90AAD002F80B4 /* Preview Assets.xcassets in Resources */,
+				08D5B83929BAE728004C7421 /* GoogleService-Info.plist in Resources */,
 				085457EF29B90AAD002F80B4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +356,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		08D5B83A29BAE870004C7421 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		08D5B83B29BAE9AA004C7421 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		08D5B83C29BAE9AA004C7421 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08D5B83B29BAE9AA004C7421 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 085457DF29B90AAB002F80B4 /* Project object */;
 }
